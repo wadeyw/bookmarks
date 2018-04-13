@@ -1,2 +1,2 @@
 # bookmarks
-first setup bookmark project with spring boot, angular, rabbitmq
+he first setup bookmark project with spring boot, angular, rabbitmq

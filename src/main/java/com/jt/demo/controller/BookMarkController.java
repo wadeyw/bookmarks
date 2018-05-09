@@ -1,11 +1,17 @@
 package com.jt.demo.controller;
 
+import com.jt.demo.DemoApplication;
 import com.jt.demo.entity.movieDetails;
 import com.jt.demo.repository.BookMarkRepository;
+import com.jt.demo.service.Amqp;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +20,9 @@ import java.util.Optional;
 public class BookMarkController {
     @Autowired
     private BookMarkRepository bookMarkRepository;
+
+    @Autowired
+    private Amqp amqp;
 
     @RequestMapping("bookmark")
     public List<movieDetails> getAllBookMark() {
@@ -38,5 +47,11 @@ public class BookMarkController {
 //        bookmark.setUrl("test url 2");
 //        bookmark.setNote("test note 2");
         return bookMarkRepository.findById("1");
+    }
+
+    @RequestMapping("sendMsg")
+    public void sendMessage() {
+
+        amqp.sendMessage("hello world send");
     }
 }
